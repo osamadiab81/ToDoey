@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController {
     
-    let itemArray = ["Osama", "mohammed", "wael", "hassan"]
+    var  itemArray = ["Osama", "mohammed", "wael", "hassan"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,32 @@ class ToDoTableViewController: UITableViewController {
         
     }
 
+    
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        // Add alert to UIBarButtonItem
+        let alert = UIAlertController(title: "Add New To Do Item", message: "", preferredStyle: .alert)
+        // Add action to UIAlertAction
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+           // What will happen when the user click add item button on UIalert add item to the array
+            self.itemArray.append(textField.text!)
+            //Reload data in table view to c the new item
+            self.tableView.reloadData()
+        }
+        // addTextField To Alert
+        alert.addTextField { (alertTextFeild) in
+            alertTextFeild.placeholder = "Create New item"
+            textField = alertTextFeild
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
