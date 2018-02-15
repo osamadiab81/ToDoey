@@ -11,9 +11,11 @@ import UIKit
 class ToDoTableViewController: UITableViewController {
     
     var  itemArray = ["Osama", "mohammed", "wael", "hassan"]
+    let defualts = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        try! itemArray = defualts.array(forKey: "ToDoListArray") as! [String]
 
     }
 
@@ -69,6 +71,7 @@ class ToDoTableViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
            // What will happen when the user click add item button on UIalert add item to the array
             self.itemArray.append(textField.text!)
+            self.defualts.setValue(self.itemArray, forKey: "ToDoListArray")
             //Reload data in table view to c the new item
             self.tableView.reloadData()
         }
